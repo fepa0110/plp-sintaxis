@@ -13,6 +13,9 @@
 %token NL         // nueva línea
 %token CONSTANT   // constante
 %token WORLD
+%token PUT
+%token GOLD
+%token IN
 
 %%
 
@@ -29,10 +32,15 @@ statement_list
 statement
   : CONSTANT NL {System.out.println("constante: "+ $1); $$ = $1;}
   | world_statement NL
+  | put_gold_in_statement NL
   ;
 
 world_statement
-  : WORLD CONSTANT 'x' CONSTANT {System.out.print("Tamaño de mundo de "+$2+"x"+$4);}
+  : WORLD CONSTANT 'x' CONSTANT {System.out.println("Tamaño de mundo de "+$2+"x"+$4);}
+  ;
+
+put_gold_in_statement
+  : PUT GOLD IN '[' CONSTANT ',' CONSTANT ']' {System.out.println("Oro colocado en "+$5+","+$7);}
   ;
  
 %%

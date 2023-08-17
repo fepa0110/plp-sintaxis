@@ -34,6 +34,9 @@ package org.unp.plp.interprete;
 %%
 
 "world" { return Parser.WORLD; }
+"put" { return Parser.PUT; }
+"gold" { return Parser.GOLD; }
+"in" { return Parser.IN; }
 
 [0-9]+
    {  yyparser.yylval = new Integer(yytext());
@@ -47,7 +50,7 @@ package org.unp.plp.interprete;
     return Parser.NL;
   }
    
-[x] {
+[\[\],x] {
     yyparser.yylval = yytext();
     return yytext().charAt(0);
   }
