@@ -33,15 +33,23 @@ package org.unp.plp.interprete;
 
 %%
 
+"world" { return Parser.WORLD; }
+
 [0-9]+
    {  yyparser.yylval = new Integer(yytext());
       return Parser.CONSTANT;
    }
+   
 
 \r|\n|\r\n
   { // lleva la cuenta de lineas
     yyline++ ;
     return Parser.NL;
+  }
+   
+[x] {
+    yyparser.yylval = yytext();
+    return yytext().charAt(0);
   }
 
 [ \t]+ {  /** accion vacia: se ignoran los espacios y tabuladores **/
