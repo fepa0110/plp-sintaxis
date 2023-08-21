@@ -5,6 +5,7 @@
   import java.io.*;
   import java.util.List;
   import java.util.ArrayList;
+  import org.unp.plp.interprete.Coordenada;
 %}
 
 
@@ -14,13 +15,15 @@
 %token CONSTANT   // constante
 %token WORLD
 %token PUT
+%token PIT
 %token GOLD
 %token IN
+%token WUMPUS
 
 %%
 
 program
-  : statement_list            // Lista de sentencias
+  : world_statement NL statement_list            // Lista de sentencias
   |                           // Programa vacio
   ;
 
@@ -31,16 +34,25 @@ statement_list
 
 statement
   : CONSTANT NL {System.out.println("constante: "+ $1); $$ = $1;}
-  | world_statement NL
   | put_gold_in_statement NL
+  | pit_statement NL
+  | wumpus_statement NL
   ;
 
 world_statement
-  : WORLD CONSTANT 'x' CONSTANT {System.out.println("Tamaño de mundo de "+$2+"x"+$4);}
+  : WORLD CONSTANT 'x' CONSTANT { world.create((int)$2, (int)$4); }
   ;
 
 put_gold_in_statement
-  : PUT GOLD IN '[' CONSTANT ',' CONSTANT ']' {System.out.println("Oro colocado en "+$5+","+$7);}
+  : PUT GOLD IN coord {System.out.println("Oro colocado en "+$5+","+$7);}
+  ;
+
+pit_statement
+  : PUT PIT IN coord { world.putPit((Coordenada)$4); }
+  ;
+
+coord
+  : '[' CONSTANT ',' CONSTANT ']' { $$ = new Coordenada((int)$2, (int)$4); }
   ;
  
 %%

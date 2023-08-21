@@ -35,29 +35,32 @@ package org.unp.plp.interprete;
 
 "world" { return Parser.WORLD; }
 "put" { return Parser.PUT; }
-"gold" { return Parser.GOLD; }
 "in" { return Parser.IN; }
 
+"gold" { return Parser.GOLD; }
+"pit" { return Parser.PIT; }
+"wumpus" { return Parser.WUMPUS; }
+
 [0-9]+
-   {  yyparser.yylval = new Integer(yytext());
-      return Parser.CONSTANT;
-   }
-   
+  {  yyparser.yylval = new Integer(yytext());
+    return Parser.CONSTANT;
+  }
+
 
 \r|\n|\r\n
   { // lleva la cuenta de lineas
     yyline++ ;
     return Parser.NL;
   }
-   
+
 [\[\],x] {
     yyparser.yylval = yytext();
     return yytext().charAt(0);
   }
 
-[ \t]+ {  /** accion vacia: se ignoran los espacios y tabuladores **/
-       }
+[ \t]+  {  /** accion vacia: se ignoran los espacios y tabuladores **/
+        }
 
-.      {  /** token desconocido: se produce un mensaje de error **/
+.       {  /** token desconocido: se produce un mensaje de error **/
           yyparser.yyerror("El lexema '"+yytext()+"' no corresponden a ningún token conocido");
-       }
+        }
