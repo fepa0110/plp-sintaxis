@@ -37,9 +37,10 @@ package org.unp.plp.interprete;
 "put" { return Parser.PUT; }
 "in" { return Parser.IN; }
 
-"gold" { return Parser.GOLD; }
-"pit" { return Parser.PIT; }
-"wumpus" { return Parser.WUMPUS; }
+"gold" {yyparser.yylval = yytext(); return Parser.ELEMENT;}
+"pit" {yyparser.yylval = yytext(); return Parser.ELEMENT;}
+"wumpus" {yyparser.yylval = yytext(); return Parser.ELEMENT;}
+"hero" {yyparser.yylval = yytext(); return Parser.ELEMENT;}
 
 [0-9]+
   {  yyparser.yylval = new Integer(yytext());

@@ -14,11 +14,10 @@
 %token NL         // nueva línea
 %token CONSTANT   // constante
 %token WORLD
+%token ELEMENT
+
 %token PUT
-%token PIT
-%token GOLD
 %token IN
-%token WUMPUS
 
 %%
 
@@ -33,22 +32,16 @@ statement_list
   ;
 
 statement
-  : CONSTANT NL {System.out.println("constante: "+ $1); $$ = $1;}
-  | put_gold_in_statement NL
-  | pit_statement NL
-  | wumpus_statement NL
+  : operation_statement NL
+  | NL
   ;
 
 world_statement
   : WORLD CONSTANT 'x' CONSTANT { world.create((int)$2, (int)$4); }
   ;
 
-put_gold_in_statement
-  : PUT GOLD IN coord {System.out.println("Oro colocado en "+$5+","+$7);}
-  ;
-
-pit_statement
-  : PUT PIT IN coord { world.putPit((Coordenada)$4); }
+operation_statement 
+  : PUT ELEMENT IN coord { world.putElement((String)$2, (Coordenada)$4); }
   ;
 
 coord
