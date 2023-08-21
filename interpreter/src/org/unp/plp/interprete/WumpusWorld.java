@@ -7,6 +7,7 @@ public class WumpusWorld {
 
 	public int gold_fila, gold_columna;
 	public int wumpus_fila, wumpus_columna;
+	public int hero_fila, hero_columna;
 
 	public void create(int filas, int columnas){
 		pozos = new boolean[filas][columnas];
@@ -21,6 +22,9 @@ public class WumpusWorld {
 			break;
 
 			case "wumpus": putWumpus(posicion);
+			break;
+
+			case "hero": putHero(posicion);
 			break;
 		}
 	}
@@ -38,4 +42,10 @@ public class WumpusWorld {
 		this.wumpus_fila=posicion.fila-1;
 		this.wumpus_columna=posicion.columna-1;
 	}
+
+	public void putHero(Coordenada posicion){
+		this.hero_fila=posicion.fila-1;
+		this.hero_columna=posicion.columna-1;
+	}
+	
 }
