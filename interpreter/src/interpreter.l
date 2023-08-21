@@ -36,6 +36,8 @@ package org.unp.plp.interprete;
 "world" { return Parser.WORLD; }
 "put" { return Parser.PUT; }
 "in" { return Parser.IN; }
+"print" {yyparser.yylval = yytext(); return Parser.PRINT;}
+"start" {yyparser.yylval = yytext(); return Parser.START;}
 
 "gold" {yyparser.yylval = yytext(); return Parser.ELEMENT;}
 "pit" {yyparser.yylval = yytext(); return Parser.ELEMENT;}

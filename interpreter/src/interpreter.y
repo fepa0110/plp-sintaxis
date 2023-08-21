@@ -15,6 +15,8 @@
 %token CONSTANT   // constante
 %token WORLD
 %token ELEMENT
+%token PRINT
+%token START
 
 %token PUT
 %token IN
@@ -33,6 +35,8 @@ statement_list
 
 statement
   : operation_statement NL
+  | print_world_statement NL
+  | start_statement NL
   | NL
   ;
 
@@ -42,6 +46,14 @@ world_statement
 
 operation_statement 
   : PUT ELEMENT IN coord { world.putElement((String)$2, (Coordenada)$4); }
+  ;
+
+print_world_statement
+  : PRINT WORLD { world.printWorld(); }
+  ;
+
+start_statement
+  : START { System.out.println("Iniciando..."); }
   ;
 
 coord
